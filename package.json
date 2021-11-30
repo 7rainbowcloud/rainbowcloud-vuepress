@@ -1,0 +1,16 @@
+{
+  "name": "chalk-web-admin",
+  "version": "1.0.0",
+  "description": "后台管理框架文档",
+  "main": "index.js",
+  "author": "Wjy",
+  "license": "2021-11-1",
+  "private": null,
+  "devDependencies": {
+    "vuepress": "^1.8.2"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}
