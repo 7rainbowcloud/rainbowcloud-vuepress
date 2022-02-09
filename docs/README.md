@@ -1,7 +1,7 @@
 ---
 home: true
 heroText: null
-tagline: chalk管理系统文档
-actionText: 快速上手 →
-actionLink: /pages/admin/
+tagline: 7彩虹云
+actionText: GO →
+actionLink: /pages/admin/admin
 ---

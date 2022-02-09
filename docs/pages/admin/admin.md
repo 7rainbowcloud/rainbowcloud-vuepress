@@ -1,3 +1,6 @@
+---
+sidebarDepth: 2
+---
 # 介绍:green_book:
 ## 快速了解
 
@@ -5,11 +8,14 @@
 
 不用IE我们大家都是好朋友！~
 
-### 技术选型
+### 核心技术
 
-- Vue 2.6.x
-- Axios 0.22.x
-- Element 2.15.x
+- npm：node.js的包管理工具，用于统一管理我们前端项目中需要用到的包、插件、工具、命令等，便于开发和维护。
+- ES6：Javascript的新版本，ECMAScript6的简称。利用ES6我们可以简化我们的JS代码，同时利用其提供的强大功能来快速实现JS逻辑。
+- vue-cli：Vue的脚手架工具，用于自动生成Vue项目的目录及文件。
+- vue-router： Vue提供的前端路由工具，利用其我们实现页面的路由控制，局部刷新及按需加载，构建单页应用，实现前后端分离。
+- vuex：Vue提供的状态管理工具，用于统一管理我们项目中各种数据的交互和重用，存储我们需要用到数据对象。
+- element-ui：基于MVVM框架Vue开源出来的一套前端ui组件。
 
 ### 内置功能
 
@@ -28,9 +34,6 @@
 ### 运行
 
 ```sh
-# 安装依赖
-npm install
-
 # 强烈建议不要用直接使用 cnpm 安装，会有各种诡异的 bug，可以通过重新指定 registry 来解决 npm 安装速度慢的问题。
 npm install --registry=https://registry.npm.taobao.org
 
@@ -44,39 +47,23 @@ npm run dev
 
 因为需要部署到服务上的子路径下，例如：`https://www.1chalk.com/admin`，需要按照下面流程修改。
 
-1、修改`vue.config.js`中的`publicPath`属性
+1、`nginx`配置（这里不用管测试志远会配置好的）
 
-```js
-publicPath: process.env.NODE_ENV === "production" ? "/admin/" : "/"
-```
-
-2、修改`router/index.js`，添加一行`base`属性
-
-```js
-export default new Router({
-  base: "/admin",
-  mode: 'history', // 去掉url中的#
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
-})
-```
-
-3、`/index`路由添加获取子路径属性`options.base`
-
-修改`layout/components/Navbar.vue`  和 `utils/request.js` 中的`location.href`
-
-```js
-location.href = this.$router.options.base + '/index'
-```
-
-4、修改`nginx`配置（这里不用管测试志远可以放好）
-
-```
+```sh
 location /admin {
 	alias   /home/admin;
 	try_files $uri $uri/ /admin/index.html;
 	index  index.html index.htm;
 }
+```
+
+2、修改`@/utils/configs.js`
+
+```js
+/**
+  * 项目打包路径 这个路径是上面配置 location /admin
+  */
+baseUrl: '/admin'
 ```
 
 ```sh
@@ -92,15 +79,17 @@ npm run build:prod
 
 它们都会通过 `webpack.DefinePlugin` 插件注入到全局。
 
-::: warning 注意
-
 环境变量必须以`VUE_APP_`为开头。如:`VUE_APP_API`、`VUE_APP_TITLE`
 
-你在代码中可以通过如下方式获取:
+在代码中可以通过如下方式获取:
 
 ```js
 console.log(process.env.VUE_APP_xxxx)
 ```
+
+::: warning 注意
+
+环境配置修改后，需要重新运行才会生效
 
 :::
 
@@ -142,9 +131,13 @@ console.log(process.env.VUE_APP_xxxx)
 
 ![](/images/web-admin/layout.png)
 
-## 路由配置
+## 路由使用
 
-项目路由和侧边栏是绑定在一起的，所以你只要在 `@/router/index.js` 下面配置对应的路由，侧边栏就能动态的生成了。当然这样就需要在配置路由的时候遵循一些约定的规则
+框架的核心是通过路由自动生成对应导航，所以除了路由的基本配置，还需要了解框架提供了哪些配置项。
+
+### 路由配置
+
+`@/router/index.js` 路由配置项
 
 ```js
 // 当设置 true 的时候该路由不会在侧边栏出现 如401，login等页面，或者如一些编辑页面/edit/1
@@ -180,18 +173,12 @@ meta: {
 {
   path: '/system',
   component: Layout,
-  redirect: '/system/user', //重定向地址，在面包屑中点击会重定向去的地址
-  hidden: true, // 不在侧边栏显示
-  alwaysShow: true, // 一直显示根路由
-  meta: { title: '系统管理', icon: 'lock'},
+  meta: { title: '系统管理', icon: 'dashboard'},
   children: [{
     path: 'user',
     name: 'User',
-    component: (resolve) => require(['@/views/system/user'], resolve),
-    meta: {
-      title: '用户管理',
-      icon: 'lock', //图标
-    }
+    component:() => import('@/views/system/user'),
+    meta: { title: '用户管理',icon: 'dashboard' }
   }]
 }
 ```
@@ -203,6 +190,35 @@ meta: {
   path: 'https://1chalk.com',
   meta: { title: 'chalk管理系统', icon : "guide" }
 }
+```
+
+### 静态路由
+
+代表那些不需要动态判断权限的路由，如登录页、404、等通用页面，`@/router/index.js`配置对应的公共路由 `constantRoutes`。
+
+### 动态路由
+
+代表那些需要根据用户动态判断权限并通过`addRoutes`动态添加的页面，在`@/store/modules/permission.js`加载后端接口路由配置。
+
+::: tip 提示
+
+- 动态路由可以在系统管理-菜单管理进行新增和修改操作，前端加载会自动请求接口获取菜单信息并转换成前端对应的路由。
+- 动态路由在生产环境下会默认使用路由懒加载，实现方式参考`loadView`方法的判断。
+
+:::
+
+### 常用方法
+
+想要跳转到不同的页面，使用`router.push`方法
+
+```js
+this.$router.push({ path: "/system/user" });
+```
+
+跳转页面并设置请求参数，使用`query`属性
+
+```js
+this.$router.push({ path: "/system/user", query: {id: "1", name: "chalk"} });
 ```
 
 ## 页签缓存
@@ -296,8 +312,9 @@ api/
 
 ```js
 import request from '@/utils/request'
+/******************************调用API标椎模板*******************************************/
+// 方法名字根据模块名字定义 
 
-/** ****************************调用API标椎模板*******************************************/
 // 获取数据详情
 export function getTestPageId(data) {
   return request({
@@ -412,7 +429,7 @@ export default {
      url: '/system/user/list',
      method: 'GET',
      params: query,
-     baseURL: process.env.BASE_API,
+     baseURL: 'xxxxxx',
      headers: {
        isToken: false
        // 可以自定义 Authorization
@@ -945,7 +962,7 @@ export default {
 
 ```vue
 // 字典标签组件翻译
-<el-table-column label="名称" prop="name">
+<el-table-column label="名称">
   <template slot-scope="{ row }">
     <dict-tag :options="dict.type.字典类型" :value="row.name"/>
   </template>
@@ -1190,11 +1207,11 @@ export default {
 
 ```
 项目命名
-	全小写_隔开  my_project_name
+	全小写-隔开  my-project-name
     
 目录命名: 全小写 
 
-文件命名:小写开头、驼峰命名
+文件命名:小写开头、驼峰命名、或全小写
     tempLate.html
     tempLate.css
     tempLate.js

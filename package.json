@@ -1,7 +1,7 @@
 {
-  "name": "chalk-web-admin",
+  "name": "rainbowcloud-web",
   "version": "1.0.0",
-  "description": "后台管理框架文档",
+  "description": "7rainbowcloud",
   "main": "index.js",
   "author": "Wjy",
   "license": "2021-11-1",
