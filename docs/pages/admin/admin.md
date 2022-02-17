@@ -45,30 +45,42 @@ npm run dev
 
 **应用路径配置**
 
-因为需要部署到服务上的子路径下，例如：`https://www.1chalk.com/admin`，需要按照下面流程修改。
+有些特殊情况需要部署到子路径下，例如：`https://www.1chalk.com/admin`，按照下面修改
 
-1、`nginx`配置（这里不用管测试志远会配置好的）
-
-```sh
-location /admin {
-	alias   /home/admin;
-	try_files $uri $uri/ /admin/index.html;
-	index  index.html index.htm;
-}
-```
-
-2、修改`@/utils/configs.js`
+修改 `.env.production` 文件中的 `VUE_APP_BASE_URL`
 
 ```js
-/**
-  * 项目打包路径 这个路径是上面配置 location /admin
-  */
-baseUrl: '/admin'
+VUE_APP_BASE_URL = '/admin'
 ```
 
 ```sh
 # 打包正式环境
 npm run build:prod
+```
+
+`nginx`配置
+
+::: tip 提示
+
+这里不用管测试服务端人员或测试人员会配置好的
+
+:::
+
+```sh
+# 前端nginx路径配置
+location /admin {
+	alias   /home/admin;
+	try_files $uri $uri/ /admin/index.html;
+	index  index.html index.htm;
+}
+# 后端接口请求代理配置
+location /prod-api/ {
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header REMOTE-HOST $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_pass http://localhost:8080/;
+}
 ```
 
 打开浏览器，输入：`https://www.1chalk.com/admin` 能正常访问和刷新表示成功。
