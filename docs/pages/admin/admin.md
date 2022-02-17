@@ -750,7 +750,7 @@ this.$test.isEmail('value') // 验证电子邮箱格式
                      ]
                    }
                 ]
-				this.$excel.dataExportExcel('导出文件名称', tableOption)
+				this.$excel.dataExportExcel(tableOption, '导出文件名称')
             }
         }
     }
@@ -802,7 +802,7 @@ this.$test.isEmail('value') // 验证电子邮箱格式
                       img: 'https://avatar.csdnimg.cn/2/1/E/3_qq_40576549_1564381773.jpg'
                     }
                   ]
-				this.$excel.imgExportExcel('导出文件名称', column, dataOption)
+				this.$excel.imgExportExcel(column, dataOption, '导出文件名称')
             }
         }
     }
@@ -822,7 +822,7 @@ this.$test.isEmail('value') // 验证电子邮箱格式
         methods: {
             // 导出按钮操作
             exportExcel() {
-                this.$excel.domExportExcel('导出文件名称', '#tableDom')
+                this.$excel.domExportExcel('#tableDom', '导出文件名称')
             }
         }
     }
@@ -852,9 +852,9 @@ export function getExportBlob() {
 // 两种方法效果一样
 // 参数 resBlob 就是后台返回的二进制文档流
 
-this.$excel.blobExcel('导出文件名称', resBlob) // 优先推荐
+this.$excel.blobExcel(resBlob, '导出文件名称') // 优先推荐
 
-this.$excel.hrefExcel('导出文件名称', resBlob)
+this.$excel.hrefExcel(resBlob, '导出文件名称')
 ```
 
 ### $chalk 对象
