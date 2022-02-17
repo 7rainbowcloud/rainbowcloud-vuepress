@@ -50,7 +50,7 @@ npm run dev
 修改 `.env.production` 文件中的 `VUE_APP_BASE_URL`
 
 ```js
-VUE_APP_BASE_URL = '/admin'
+VUE_APP_BASE_URL = '/admin/'
 ```
 
 ```sh
@@ -62,7 +62,7 @@ npm run build:prod
 
 ::: tip 提示
 
-这里不用管测试服务端人员或测试人员会配置好的
+这里不用管，服务端或测试人员会配置好的
 
 :::
 
