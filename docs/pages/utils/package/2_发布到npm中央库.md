@@ -1,7 +1,3 @@
----
-sidebarDepth: 2
----
-
 # 二、发布到npm中央仓库
 
 ## 1.完善 package.json

@@ -18,6 +18,18 @@ module.exports = {
     nav: [
       { text: '管理系统', link: '/pages/admin/admin' },
       {
+        text: 'Vue',
+        items: [
+          {
+            text: 'Vue3',
+            items: [
+              { text: '教程文档', link: '/pages/vue3/vue3' },
+            ]
+          },
+        ]
+      },
+      { text: '开发规范', link: '/pages/dev-standard/dev-standard' },
+      {
         text: '工具库',
         items: [
           {
@@ -37,12 +49,6 @@ module.exports = {
               { text: '动画-5', link: 'https://7rainbowcloud.com/animation/animation-5.html' }
             ]
           },
-        ]
-      },
-      {
-        text: '前端',
-        items: [
-          { text: 'vue3.0', link: '/pages/vue3/vue3' }
         ]
       }
     ],

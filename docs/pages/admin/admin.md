@@ -1,6 +1,3 @@
----
-sidebarDepth: 2
----
 # 介绍:green_book:
 ## 快速了解
 
