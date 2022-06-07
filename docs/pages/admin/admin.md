@@ -700,9 +700,9 @@ this.$test.isEmail('value') // 验证电子邮箱格式
  */
 ```
 
-### $excel 导出
+### $Export 导出
 
-`$excel  `对象用于项目所有的导出Excel功能封装处理，定义在`plugins/excel `文件中。
+`$Export  `对象用于项目所有的导出Excel功能封装处理，定义在`plugins/excel `文件中。
 
 导出Excel可分为 **纯前端导出** 或 **后台导出**
 
@@ -738,7 +738,7 @@ this.$test.isEmail('value') // 验证电子邮箱格式
                      ]
                    },
                    {
-                     sheet: '页签1',
+                     sheet: '页签2',
                      title: ['身高', '体重', '住址'],
                      data: [
                        ['162cm', '20kg', '北京市'],
@@ -747,7 +747,7 @@ this.$test.isEmail('value') // 验证电子邮箱格式
                      ]
                    }
                 ]
-				this.$excel.dataExportExcel(tableOption, '导出文件名称')
+				this.$Export.dataExportExcel(tableOption, '导出文件名称')
             }
         }
     }
@@ -799,7 +799,7 @@ this.$test.isEmail('value') // 验证电子邮箱格式
                       img: 'https://avatar.csdnimg.cn/2/1/E/3_qq_40576549_1564381773.jpg'
                     }
                   ]
-				this.$excel.imgExportExcel(column, dataOption, '导出文件名称')
+				this.$Export.imgExportExcel(column, dataOption, '导出文件名称')
             }
         }
     }
@@ -819,7 +819,7 @@ this.$test.isEmail('value') // 验证电子邮箱格式
         methods: {
             // 导出按钮操作
             exportExcel() {
-                this.$excel.domExportExcel('#tableDom', '导出文件名称')
+                this.$Export.domExportExcel('#tableDom', '导出文件名称')
             }
         }
     }
@@ -849,9 +849,9 @@ export function getExportBlob() {
 // 两种方法效果一样
 // 参数 resBlob 就是后台返回的二进制文档流
 
-this.$excel.blobExcel(resBlob, '导出文件名称') // 优先推荐
+this.$Export.blobExcel(resBlob, '导出文件名称') // 优先推荐
 
-this.$excel.hrefExcel(resBlob, '导出文件名称')
+this.$Export.hrefExcel(resBlob, '导出文件名称')
 ```
 
 ### $chalk 对象
