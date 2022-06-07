@@ -1,5 +1,5 @@
 const { defaultTheme } = require('@vuepress/theme-default')
-const { docsearchPlugin } = require('@vuepress/plugin-docsearch')
+const { searchPlugin } = require('@vuepress/plugin-search')
 module.exports = {
   base: '/',
   lang: 'zh-CN',
@@ -83,8 +83,16 @@ module.exports = {
     }
   }),
   plugins: [
-    docsearchPlugin({
-      placeholder: '搜索文档'
-    }),
-  ],
+    searchPlugin({
+      locales: {
+        '/': {
+          placeholder: '搜索文档',
+        },
+        '/zh/': {
+          placeholder: '搜索',
+        },
+      },
+      maxSuggestions: 10
+    })
+  ]
 }
