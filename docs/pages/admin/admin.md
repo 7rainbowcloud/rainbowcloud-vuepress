@@ -1012,6 +1012,40 @@ this.$api.getConfigKey("参数键名").then(response => {
 });
 ```
 
+## 事件总线
+
+ 在vue项目中，父子组件间的通讯很方便。但兄弟组件或多层嵌套组件间的通讯，就会比较麻烦。这时，使用eventBus通讯，就可以很便捷的解决这个问题。
+
+1. 引入到使用的组件
+
+```js
+import EventBus from '@/utils/eventBus'
+```
+
+2. 触发事件
+
+```js
+EventBus.$emit('eventName', param1,param2,...)
+```
+
+3. 监听事件（通常在mounted或created中声明）
+
+```js
+EventBus.$on('eventName', (param1,param2,...) => {
+    // 需要执行的代码
+})
+```
+
+4. 移除监听事件
+
+::: tip 提示
+为了避免在监听时，事件被反复触发，通常需要在页面销毁时移除事件监听。或者在开发过程中，由于热更新，事件可能会被多次绑定监听，这时也需要移除事件监听
+:::
+
+```js
+EventBus.$off('eventName')
+```
+
 ## 全局组件
 
 ### 树形选择组件
