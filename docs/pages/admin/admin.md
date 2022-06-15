@@ -452,7 +452,7 @@ export default {
 
 所有通用方法都封装在`@/plugins`
 
-### $tab对象
+### $tab 对象
 
 `$tab`对象用于做页签操作、刷新页签、关闭页签、打开页签、修改页签等，它定义在`plugins/tab.js`文件中，方法如下：
 
@@ -700,13 +700,9 @@ this.$test.isEmail('value') // 验证电子邮箱格式
  */
 ```
 
-### $Export 导出
+### $export 导出
 
 `$Export  `对象用于项目所有的导出Excel功能封装处理，定义在`plugins/excel `文件中。
-
-导出Excel可分为 **纯前端导出** 或 **后台导出**
-
-#### 纯前端导出
 
 1、第一种方法：通过数据源导出
 ::: warning 注意
@@ -747,7 +743,7 @@ this.$test.isEmail('value') // 验证电子邮箱格式
                      ]
                    }
                 ]
-				this.$Export.dataExportExcel(tableOption, '导出文件名称')
+				this.$export.dataExportExcel(tableOption, '导出文件名称')
             }
         }
     }
@@ -799,60 +795,34 @@ this.$test.isEmail('value') // 验证电子邮箱格式
                       img: 'https://avatar.csdnimg.cn/2/1/E/3_qq_40576549_1564381773.jpg'
                     }
                   ]
-				this.$Export.imgExportExcel(column, dataOption, '导出文件名称')
+				this.$export.imgExportExcel(column, dataOption, '导出文件名称')
             }
         }
     }
 </script>
 ```
 
-3、第三种方法：通过dom元素导出
 
-```vue
-<template>
-    <el-button @click="exportExcel">导出</el-button>
-    <!-- 元素设置id -->
-	<el-table id="tableDom"></el-table>
-</template>
-<script>
-	export default {
-        methods: {
-            // 导出按钮操作
-            exportExcel() {
-                this.$Export.domExportExcel('#tableDom', '导出文件名称')
-            }
-        }
-    }
-</script>
-```
 
-#### 后端导出
+### $download 下载
 
-发请求后根据后台接口返回的二进制文档流，前端解析下载。
+`$download`对象用于文件下载，它定义在`plugins/download.js`文件中。
 
-1、在发起请求时，需指定 `responseType`
+- 根据下载url路径下载
 
 ```js
-import request from '@/utils/request'
-// 以GET请求为例
-export function getExportBlob() {
-  return request({
-    method: 'GET',
-    responseType: 'blob'
-  })
-}
+const fileUrl = "https:://1chalk.com/profile/upload/xxxxxxx.png";
+
+this.$download.url(fileUrl, '文件名称')
 ```
 
-2、调用方法下载
+- 根据二进制文档流下载
 
 ```js
-// 两种方法效果一样
-// 参数 resBlob 就是后台返回的二进制文档流
-
-this.$Export.blobExcel(resBlob, '导出文件名称') // 优先推荐
-
-this.$Export.hrefExcel(resBlob, '导出文件名称')
+this.$download.url(dataBlob, '文件名称', '.xlsx')
 ```
+
+
 
 ### $chalk 对象
 

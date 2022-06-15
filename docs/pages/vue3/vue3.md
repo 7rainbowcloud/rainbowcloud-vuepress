@@ -88,8 +88,14 @@ vite官网：https://vitejs.cn
 <img src="https://cn.vitejs.dev/assets/bundler.37740380.png" style="width:500px;height:280px;float:left" /><img src="https://cn.vitejs.dev/assets/esm.3070012d.png" style="width:500px;height:280px;margin-top:20px;" />
 
 ```bash
-## 创建工程
-npm init vite-app <project-name>
+## 创建工程(自选项目框架)
+npm init vite@latest <project-name>
+## 创建工程(已选特定框架)
+## npm 6.x
+npm init vite@latest <project-name> --template vue
+## npm 7+，需要加上额外的双短横线
+npm init vite@latest <project-name> -- --template vue
+
 ## 进入工程目录
 cd <project-name>
 ## 安装依赖
