@@ -1166,6 +1166,57 @@ export default {
 </template>
 ```
 
+### 大屏自适应组件
+
+新建vue页面，直接复制下面模板到页面
+
+::: warning 注意
+
+所有组件必须全部写在  `class="scale-screen-main"`  里面
+
+:::
+
+```vue
+<template>
+  <scale-screen full-screen>
+    <div class="scale-screen-main">
+      <!-- 所有组件全部写在这里 -->
+    </div>
+  </scale-screen>
+</template>
+
+<script>
+import ScaleScreen from '@/components/ScaleScreen'
+export default {
+  name: 'visualPage',
+  components: { ScaleScreen },
+  data() {
+    return {}
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.scale-screen-main{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+</style>
+```
+**API**
+
+| 属性        | 说明                                                                  | 类型              | 默认值                      |
+|-----------|:--------------------------------------------------------------------|-----------------|--------------------------|
+| width     | 大屏宽度（设计稿宽度）                                                         | Number \|String         | 1920 |
+| height   | 大屏高度（设计稿高度）                                            | Number \|String | 1080 |
+| autoScale | 自适应配置，配置为boolean类型时，为启动或者关闭自适应，配置为对象时，若x为true，x轴产生边距，y为true时，y轴产生边距，启用fullScreen时此配置失效 | boolean\|{x:boolean,y:boolean} | true                     |
+| delay     | 窗口变化防抖延迟时间                                                          | Number          | 500                      |
+| fullScreen | 全屏自适应，启用此配置项时会存在拉伸效果，同时autoScale失效，非必要情况下不建议开启 | boolean | false |
+| backgroundColor | 页面背景色                                                  | String    | #000                   |
+
+
+
 ## 修改element-ui样式
 
 在组件内修改elementui样式需要加上::v-deep, less需要使用 /deep/ 正常css需要使用 >>>
