@@ -6,7 +6,7 @@ module.exports = {
   title: '7彩虹云',
   description: '7彩虹云-个人技术文档',
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }]
+    ['link', { rel: 'icon', href: '/images/logo.png' }]
   ],
   theme: defaultTheme({
     home: '/',

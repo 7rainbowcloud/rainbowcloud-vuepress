@@ -1,9 +1,10 @@
 ---
 home: true
-heroText: null
-tagline: 7彩虹云
+heroText: 7彩虹云
+heroImage: /images/logo.png
+tagline: 不用IE我们大家都是好朋友！~
 actions:
-- text: 快速上手
+- text: GO ☺
   link: /pages/admin/admin
   type: primary
 features:
