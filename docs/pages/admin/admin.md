@@ -806,7 +806,7 @@ this.$test.isEmail('value') // 验证电子邮箱格式
 
 ### $download 下载
 
-`$download`对象用于文件下载，它定义在`plugins/download.js`文件中。
+`$download`对象用于文件下载，它定义在`plugins/download.js`文件中。方法如下：
 
 - 根据下载url路径下载
 
@@ -822,7 +822,33 @@ this.$download.url(fileUrl, '文件名称')
 this.$download.url(dataBlob, '文件名称', '.xlsx')
 ```
 
+### $print 打印
 
+`$print`对象用于文件下载，它定义在`plugins/print.js`文件中。方法如下：
+
+```vue
+<el-button type="primary" @click="handlePrint">打印全部</el-button>
+<el-button type="primary" @click="handlePrint1">打印局部</el-button>
+<el-button type="primary" @click="handlePrint2">打印DOM</el-button>
+<div id="test">
+  <h2 style="color:red">我是测试字段</h2>
+</div>
+<script>
+export default {
+  methods: {
+    handlePrint() {
+      this.$print('#app');
+    },
+    handlePrint1(){
+      this.$print('#test');
+    },
+    handlePrint2(){
+      this.$print(document.querySelector('.logo'));
+    }
+  }
+}
+</script>
+```
 
 ### $chalk 对象
 
