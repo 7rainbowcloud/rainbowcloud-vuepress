@@ -1,5 +1,6 @@
 const { defaultTheme } = require('@vuepress/theme-default')
-const { searchPlugin } = require('@vuepress/plugin-search')
+// const { searchPlugin } = require('@vuepress/plugin-search')
+const { docsearchPlugin } = require('@vuepress/plugin-docsearch')
 module.exports = {
   base: '/',
   lang: 'zh-CN',
@@ -42,7 +43,8 @@ module.exports = {
             text: '工具包',
             children: [
               { text: '工具包使用', link: '/pages/utils/tools/tools-install' },
-              { text: '创建自己的npm包', link: '/pages/utils/package/1-chuangjiangongjubao' }
+              { text: '创建自己的npm包', link: '/pages/utils/package/1-chuangjiangongjubao' },
+              { text: 'nvm使用', link: '/pages/utils/nvm/nvm' },
             ]
           },
           {
@@ -83,16 +85,26 @@ module.exports = {
     }
   }),
   plugins: [
-    searchPlugin({
-      locales: {
-        '/': {
-          placeholder: '搜索文档',
-        },
-        '/zh/': {
-          placeholder: '搜索',
-        },
-      },
-      maxSuggestions: 10
+    docsearchPlugin({
+      appId: '7H4UJND6TR',
+      apiKey: '4f4860f9debf6b82fe48a7d3d6373dea',
+      indexName: '7rainbowcloud',
+
+      // appId: '34YFD9IUQ2',
+      // apiKey: '9a9058b8655746634e01071411c366b8',
+      // indexName: 'vuepress',
+      placeholder: '搜索文档'
     })
+    // searchPlugin({
+    //   locales: {
+    //     '/': {
+    //       placeholder: '搜索文档',
+    //     },
+    //     '/zh/': {
+    //       placeholder: '搜索',
+    //     },
+    //   },
+    //   maxSuggestions: 10
+    // })
   ]
 }
