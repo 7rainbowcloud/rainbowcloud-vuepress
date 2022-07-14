@@ -942,13 +942,7 @@ this.searchAddDateRange(this.queryParams, this.dateRange, ['startTime', 'enTime'
 
 **有两种方法使用**
 
-第一种方法（优先推荐使用）
-
-```js
-/* main.js引入全局变量和方法 （已有，无需在引入） */
-import DictData from '@/components/DictData'
-DictData.install()
-```
+第一种方法（**优先推荐使用**）
 
 1、加载数据字典，可以是多个。
 
@@ -962,12 +956,7 @@ export default {
 2、读取数据字典
 
 ```vue
-<el-option
-  v-for="dict in dict.type.字典类型"
-  :key="dict.value"
-  :label="dict.label"
-  :value="dict.value"
-/>
+<dict-select v-model="value" :options="dict.type.字典类型" />
 ```
 
 3、翻译数据字典
@@ -1002,20 +991,16 @@ export default {
   },
   created() {
       this.$api.getDicts("字典类型").then(response => {
-      this.xxxxxOptions = response.data;
-  });
+      	this.xxxxxOptions = response.data;
+      });
+  }
 }
 ```
 
 2、读取数据字典
 
 ```vue
-<el-option
-  v-for="dict in xxxxxOptions"
-  :key="dict.dictValue"
-  :label="dict.dictLabel"
-  :value="dict.dictValue"
-/>
+<dict-select v-model="value" :options="xxxxxOptions" />
 ```
 
 4、翻译数据字典
