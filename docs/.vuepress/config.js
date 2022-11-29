@@ -1,6 +1,6 @@
 const { defaultTheme } = require('@vuepress/theme-default')
-// const { searchPlugin } = require('@vuepress/plugin-search')
-const { docsearchPlugin } = require('@vuepress/plugin-docsearch')
+const { searchPlugin } = require('@vuepress/plugin-search')
+// const { docsearchPlugin } = require('@vuepress/plugin-docsearch')
 module.exports = {
   base: '/',
   lang: 'zh-CN',
@@ -12,8 +12,8 @@ module.exports = {
   theme: defaultTheme({
     home: '/',
     logo: '/images/logo.png',
-    repo: 'https://gitee.com/wjyjiayu/rainbowcloud-web',
-    repoLabel: 'Gitee',
+    // repo: 'https://gitee.com/wjyjiayu/rainbowcloud-web',
+    // repoLabel: 'Gitee',
     sidebarDepth: '2',
     editLink: false,
     lastUpdatedText: '最后更新时间',
@@ -23,6 +23,7 @@ module.exports = {
     // 头部导航
     navbar: [
       { text: '管理系统', link: '/pages/admin/admin' },
+      { text: 'JavaScript', link: '/pages/js/js' },
       { text: 'ES6',link: '/pages/es6/module' },
       {
         text: 'Vue',
@@ -63,6 +64,7 @@ module.exports = {
     // 左侧导航
     sidebar: {
       '/pages/admin/': ['admin'],
+      '/pages/js/': ['js'],
       '/pages/es6/': ['module'],
       '/pages/vue3/': [
         {
@@ -85,26 +87,26 @@ module.exports = {
     }
   }),
   plugins: [
-    docsearchPlugin({
-      appId: '7H4UJND6TR',
-      apiKey: '4f4860f9debf6b82fe48a7d3d6373dea',
-      indexName: '7rainbowcloud',
-
-      // appId: '34YFD9IUQ2',
-      // apiKey: '9a9058b8655746634e01071411c366b8',
-      // indexName: 'vuepress',
-      placeholder: '搜索文档'
-    })
-    // searchPlugin({
-    //   locales: {
-    //     '/': {
-    //       placeholder: '搜索文档',
-    //     },
-    //     '/zh/': {
-    //       placeholder: '搜索',
-    //     },
-    //   },
-    //   maxSuggestions: 10
+    // docsearchPlugin({
+    //   appId: '7H4UJND6TR',
+    //   apiKey: '4f4860f9debf6b82fe48a7d3d6373dea',
+    //   indexName: '7rainbowcloud',
+    //
+    //   // appId: '34YFD9IUQ2',
+    //   // apiKey: '9a9058b8655746634e01071411c366b8',
+    //   // indexName: 'vuepress',
+    //   placeholder: '搜索文档'
     // })
+    searchPlugin({
+      locales: {
+        '/': {
+          placeholder: '搜索文档',
+        },
+        '/zh/': {
+          placeholder: '搜索',
+        },
+      },
+      maxSuggestions: 10
+    })
   ]
 }
